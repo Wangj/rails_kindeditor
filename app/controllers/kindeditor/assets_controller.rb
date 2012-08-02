@@ -28,7 +28,7 @@ class Kindeditor::AssetsController < ApplicationController
           render :text => ({:error => 0, :url => uploader.url}.to_json)
           image = MiniMagick::Image.open("#{Rails.public_path}"+uploader.url)
           image.resize "200"
-          image.draw "image Over #{image[:width]-34},#{image[:height]-34},0,0 '#{Rails.public_path}/b.png'"
+          image.draw "image Over #{image[:width]-34},#{image[:height]-34},0,0 '#{Rails.public_path}/zoom.png'"
           image.write ("#{Rails.public_path}"+uploader.url+"_200."+uploader.url.split(".")[1])
         rescue CarrierWave::UploadError => e
           show_error(e.message)
