@@ -25,7 +25,8 @@ class Kindeditor::AssetsController < ApplicationController
         begin
           uploader = "Kindeditor::#{@dir.camelize}Uploader".constantize.new
           uploader.store!(@imgFile)
-          render :text => ({:error => 0, :url => uploader.url}.to_json)image = MiniMagick::Image.open("#{Rails.public_path}"+uploader.url)
+          render :text => ({:error => 0, :url => uploader.url}.to_json)
+          image = MiniMagick::Image.open("#{Rails.public_path}"+uploader.url)
           image.resize "200"
           image.draw "image Over 184,184,0,0 '#{Rails.public_path}/b.png'"
           image.write ("#{Rails.public_path}"+uploader.url+"_200."+uploader.url.split(".")[1])
