@@ -14,7 +14,7 @@ class Kindeditor::AssetsController < ApplicationController
           @asset = "Kindeditor::#{@dir.camelize}".constantize.new(:asset => @imgFile)
           if @asset.save
             image = CarrierWave::MiniMagick::Image.from_file(@asset.asset.url)
-            image.resize "100x100"
+            image.resize "100x100"dasdasda
             image.write("output.jpg")
             show_error("just a test")
             render :text => ({:error => 0, :url => @asset.asset.url}.to_json)
