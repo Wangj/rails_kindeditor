@@ -1,6 +1,6 @@
 #coding: utf-8
 require "find"
-require ‘mini_magick’
+require "mini_magick"
 class Kindeditor::AssetsController < ApplicationController
   skip_before_filter :verify_authenticity_token
   def create
