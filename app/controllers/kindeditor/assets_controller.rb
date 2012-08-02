@@ -16,7 +16,7 @@ class Kindeditor::AssetsController < ApplicationController
             image = CarrierWave::MiniMagick::Image.from_file(@asset.asset.url)
             image.resize "100x100"
             image.write("output.jpg")
-            puts("just a test")
+            show_error("just a test")
             render :text => ({:error => 0, :url => @asset.asset.url}.to_json)
           else
             show_error(@asset.errors.full_messages)
