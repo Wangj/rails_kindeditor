@@ -1,5 +1,6 @@
 #coding: utf-8
 require "find"
+require ‘mini_magick’
 class Kindeditor::AssetsController < ApplicationController
   skip_before_filter :verify_authenticity_token
   def create
@@ -13,10 +14,9 @@ class Kindeditor::AssetsController < ApplicationController
         begin
           @asset = "Kindeditor::#{@dir.camelize}".constantize.new(:asset => @imgFile)
           if @asset.save
-            image = CarrierWave::MiniMagick::Image.from_file(@asset.asset.url)
-            image.resize "100x100"dasdasda
+            image = MiniMagick::Image.from_file(@asset.asset.url)
+            image.resize 100
             image.write("output.jpg")
-            show_error("just a test")
             render :text => ({:error => 0, :url => @asset.asset.url}.to_json)
           else
             show_error(@asset.errors.full_messages)
