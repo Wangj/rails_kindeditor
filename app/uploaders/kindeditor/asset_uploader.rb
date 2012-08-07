@@ -36,12 +36,15 @@ class Kindeditor::AssetUploader < CarrierWave::Uploader::Base
   # end
 
   # Process files as they are uploaded:
-  # process :scale => [200, 300]
+    process :scale => [200, 300]
   #
-  # def scale(width, height)
-  #   # do something
-  # end
-
+   def scale(width, height)
+     #puts Rails.public_path+"--------"+store_dir+"----"+filename+"/-----/"+current_path+"-----"+original_filename
+      image = MiniMagick::Image.open("#{current_path}")
+      image.resize "200"
+      image.draw "image Over #{image[:width]-34},#{image[:height]-34},0,0 '#{Rails.public_path}/zoom.png'"
+      image.write ("#{Rails.public_path}/#{store_dir}/#{filename.split(".")[0]}_200.#{filename.split(".")[1]}")
+   end
   # Create different versions of your uploaded files:
   # version :thumb do
   #   process :scale => [50, 50]
