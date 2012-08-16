@@ -1,5 +1,5 @@
 # encoding: utf-8
-
+require 'fileutils'
 class Kindeditor::AssetUploader < CarrierWave::Uploader::Base
   
   EXT_NAMES = {:image => RailsKindeditor.upload_image_ext,
@@ -43,7 +43,12 @@ class Kindeditor::AssetUploader < CarrierWave::Uploader::Base
       image = MiniMagick::Image.open("#{current_path}")
       image.resize "200"
       image.draw "image Over #{image[:width]-34},#{image[:height]-34},0,0 '#{Rails.public_path}/zoom.png'"
-      image.write ("#{Rails.public_path}/#{store_dir}/#{filename}_200.#{filename.split(".")[1]}")
+      @f = "#{Rails.public_path}/#{store_dir}/#{filename}_200.#{filename.split(".")[1]}"
+      @dir = File.dirname(@f)
+      if !File.directory? @dir
+        FileUtils.mkdir_p @dir
+      end
+      image.write (@f)
    end
   # Create different versions of your uploaded files:
   # version :thumb do
