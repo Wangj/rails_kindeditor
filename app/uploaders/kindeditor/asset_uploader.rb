@@ -42,7 +42,7 @@ class Kindeditor::AssetUploader < CarrierWave::Uploader::Base
      #puts Rails.public_path+"--------"+store_dir+"----"+filename+"/-----/"+current_path+"-----"+original_filename
       image = MiniMagick::Image.open("#{current_path}")
       image.resize "200"
-      image.draw "image Over #{image[:width]-26},#{image[:height]-26},0,0 '#{Rails.public_path}/zoom.png'"
+      #image.draw "image Over #{image[:width]-26},#{image[:height]-26},0,0 '#{Rails.public_path}/zoom.png'"
       @f = "#{Rails.public_path}/#{store_dir}/#{filename}_200.#{filename.split(".")[1]}"
       @dir = File.dirname(@f)
       if !File.directory? @dir
